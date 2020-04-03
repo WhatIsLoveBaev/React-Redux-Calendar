@@ -1,38 +1,311 @@
-.App {
-  text-align: center;
+
+body {
+  font-size: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.calendar_container {
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  color: black;
+  font-size: 1em;
+  font-family: 'Cormorant SC', serif;
+  box-shadow: 0px 0px 50px #888888;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media (min-width: 440px) {
+  .calendar_container {
+    width: 80%;
+  }
+}
+@media (min-width: 576px) {
+  .calendar_container {
+    width: 60%;
+  }
+}
+@media (min-width: 768px) {
+  .calendar_container {
+    width: 50%;
+    font-size: 1em;
+  }
+}
+@media (min-width: 992px) {
+  .calendar_container {
+    width: 40%;
+    font-size: 1em;
+  }
+}
+@media (min-width: 1200px) {
+  .calendar_container {
+    width: 30%;
+    font-size: 1em;
+  }
+}
+@media (min-width: 1300px) {
+  .calendar_container {
+    width: 20%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+.main-calendar {
+  height: 100%;
+}
+.main-calendar .calendar-header {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 30%;
+  color: #ffffff;
+}
+.main-calendar .calendar-header .title-header {
+  width: 100%;
+  height: 70%;
+  white-space: nowrap;
+  font-size: 1.2em;
+  background-color: #4B0082;
+  height: 60px;
+}
+@media (min-width: 992px) {
+  .main-calendar .calendar-header .title-header {
+    font-size: 1.4em;
+  }
+}
+@media (min-width: 1200px) {
+  .main-calendar .calendar-header .title-header {
+    font-size: 1.2em;
+  }
+}
+.main-calendar .calendar-header .title-header .header-text {
+  flex: 5;
+  display: flex;
+  height: 100%;
+}
+.main-calendar .calendar-header .title-header .header-text .today-label {
+  flex: 2;
+  font-size: 0.8em;
+}
+.main-calendar .calendar-header .title-header .header-text .today-label:hover {
+  cursor: pointer;
+  color: #6A5ACD;
+  background-color: #ffffff;
+}
+.main-calendar .calendar-header .title-header .header-text .month-label {
+  flex: 3;
+}
+
+.main-calendar .calendar-header .days-header {
+  width: 100%;
+  height: 30%;
+  background-color: #6A5ACD;
+}
+.main-calendar .calendar-header .button-container {
+  width: 100%;
+  height: 30%;
+  background-color: #6A5ACD;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.main-calendar .calendar-header .button-container .event-button {
+  flex-grow: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-wrap: nowrap;
+}
+.main-calendar .calendar-header .button-container .event-button:hover {
+  background-color: #fff;
+  color: #6A5ACD;
+}
+
+.main-calendar .days-container {
+  width: 100%;
+  height: 70%;
+  background: white;
+}
+.main-calendar .days-container .week {
+  height: 15%;
+}
+.main-calendar .day-events {
+  position: relative;
+  width: 100%;
+  height: 70%;
+  background-color: #4B0082;
+  font-size: 1.2em;
+}
+.main-calendar .day-events .event-container {
+  width: 100%;
+  text-align: center;
+  display: flex;
+}
+.main-calendar .day-events .event-container .animated-time {
+  width: 30%;
+}
+.main-calendar .day-events .event-container .animated-title {
+  width: 70%;
+}
+.main-calendar .day-events .event-container .event-attribute {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 5px;
+}
+.event-container {
+  flex-direction: column;
+  font-size: 18px;
+  margin-bottom: 5px;
+  padding-bottom: 10px;
+  background-color: white;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  transition: all 0.4s ease-in-out 0s;
+}
+.box.arrow:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #1e88e5;
+  transition: all 0.2s ease-in-out 0s;
+}
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+.day .day-number {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.day:hover .day-number {
+  background-color: #6A5ACD;
+  color: #ffffff;
+  transition: background-color 0.2s ease-in-out 0s;
+}
+.day.today .day-number {
+  border: 1px solid #4B0082;
+}
+.day.has-events .day-number {
+  color: rgb(146, 130, 255);
+  font-weight: bold;
+}
+.day.different-month {
+  opacity: 0.5;
+}
+.events-empty {
+  width: auto;
+  height: auto;
+  padding-top: 125px;
+  background-color: white;
+}
+.create_event_container {
+  background-color: #4B0082;
+}
+
+.event_name, .event_time, .event_people, .event_description, .event_button {
+  display: flex;
+  margin-top: 10px;
   color: white;
+ }
+.event_name {
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 0px;
+  padding-top: 10px;
 }
-
-.App-link {
-  color: #61dafb;
+.event_time {
+  justify-content: center;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.event_people {
+  justify-content: space-around;
+}
+.event_description {
+  flex-direction: column;
+  align-items: center;
+}
+.event_button {
+  margin: 10px auto;
+  border: 1px solid #4B0082;
+  background-color: #6A5ACD;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+}
+.event_input {
+  border: 1px solid white;
+}
+.event_input::placeholder {
+  font-family: 'Cormorant SC', serif;
+  color: #8d8c8c;
+  font-size: 14px;
+}
+.event_info_wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5px;
+}
+.event_title_label {
+  display: flex;
+  justify-content: space-between;
+  color: #6A5ACD;
+  text-decoration-line: underline;
+}
+.event_time_label, .event_people_label {
+  color: #6A5ACD;
+}
+.animError {
+  transition: all 0.7s;
+}
+.trash_svg {
+  width: 7%;
+  height: 7%;
+  cursor: pointer;
+}
+.edit_svg {
+  cursor: pointer;
+}
+.plus_svg {
+  height: 25px;
+  width: 25px;
+  padding: 1px;
+}
+.arrow_back {
+  border-radius: 40%;
+}
+.svg_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s;
+  padding: 5px;
+}
+.svg_wrap:hover {
+  background-color: rgba(76, 0, 130, 0.603);
+  cursor: pointer;
+}
+.hide {
+  display: none;
 }
