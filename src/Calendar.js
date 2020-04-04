@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+/* import 'moment/locale/ru' */
 
 import Events from './Events'
 import Week from './Week'
@@ -7,7 +8,8 @@ import DayNames from './DayNames'
 
 import './App.css'
 import Plus from './plus.svg'
-import arrowBack from './arrow_back.svg'
+import arrowLeft from './arrow_left.svg'
+import arrowRight from './arrow_right.svg'
 
 export default class Calendar extends React.Component {
     constructor(props) {
@@ -28,8 +30,9 @@ export default class Calendar extends React.Component {
         this.showCalendar = this.showCalendar.bind(this)
         this.goToCurrentMonthView = this.goToCurrentMonthView.bind(this)
         this.takeValues = this.takeValues.bind(this)
+        console.log(this.state.selectedMonthEvents)
     }
-    
+
     componentDidMount() {
         let local = JSON.parse(localStorage.getItem('CalendarEvents'))
         if (local) {
@@ -93,7 +96,7 @@ export default class Calendar extends React.Component {
         const state = this.state.selectedMonth
         let current = state.format('MMMM YYYY')
         return (
-            <span onClick={e => {this.showMonth()}} className='box month-label'>
+            <span className='box month-label'>
                 {current}
             </span>
         )
@@ -262,7 +265,7 @@ export default class Calendar extends React.Component {
                                 {this.renderDayLabel()}
                             </div>
                             <div className='row button-container'>
-                                <div className='svg_wrap plus_svg' onClick={this.showEvents}><img className='plus_svg arrow_back' src={arrowBack} alt="arrowBack" /></div>
+                                <div className='svg_wrap plus_svg' onClick={this.showEvents}><img className='plus_svg arrow_back' src={arrowLeft} alt="arrowBack" /></div>
                             </div>
                         </header>
 
@@ -273,8 +276,8 @@ export default class Calendar extends React.Component {
                                 <input 
                                 style={{width: '35%'}} 
                                 id='eventName' type='text' 
-                                className='event_input animError' 
-                                placeholder='Сходить в магазин' 
+                                className='event_input animError event_title_label' 
+                                placeholder='Покупки' 
                                 ref={ref => this.inputName = ref}
                                 />
                             </div>
@@ -284,7 +287,7 @@ export default class Calendar extends React.Component {
                                 <input 
                                 style={{width: '5%'}} 
                                 type='text'
-                                className='event_input animError' 
+                                className='event_input animError event_title_label' 
                                 id='timeHours' 
                                 maxLength='2' 
                                 placeholder='12'
@@ -294,7 +297,7 @@ export default class Calendar extends React.Component {
                                 <input 
                                 style={{width: '5%'}} 
                                 type='text' 
-                                className='event_input animError'
+                                className='event_input animError event_title_label'
                                 maxLength='2' 
                                 placeholder='00'
                                 id='timeMinutes' 
@@ -307,7 +310,7 @@ export default class Calendar extends React.Component {
                                 <input 
                                 type='text' 
                                 id='people' 
-                                className='event_input' 
+                                className='event_input event_title_label' 
                                 placeholder='Иван, Пётр'
                                 ref={ref => this.inputPeople = ref}
                                 />
@@ -318,7 +321,7 @@ export default class Calendar extends React.Component {
                                 <input 
                                 type='text' 
                                 id='description' 
-                                className='event_input' 
+                                className='event_input event_title_label' 
                                 placeholder='Купить хлеба и молока'
                                 ref={ref => this.inputDescription = ref}
                                 />
@@ -339,7 +342,7 @@ export default class Calendar extends React.Component {
                                 {this.renderDayLabel()}
                             </div>
                             <div className='button-container'>
-                                <div className='svg_wrap plus_svg' onClick={this.showCalendar}><img className='plus_svg arrow_back' src={arrowBack} alt="arrowBack" /></div>
+                                <div className='svg_wrap plus_svg' onClick={this.showCalendar}><img className='plus_svg arrow_back' src={arrowLeft} alt="arrowBack" /></div>
                                 <div className='svg_wrap plus plus_svg' onClick={this.addEvent}><img className='plus_svg' src={Plus} alt="plus" /></div>
                             </div>
                         </header>
@@ -360,12 +363,12 @@ export default class Calendar extends React.Component {
                     <section className='main-calendar'>
                         <header className='calendar-header'>
                             <div className='row title-header'>
-                                <span className='box arrow-left' onClick={this.previous}>{'<'}</span>
+                                <span className='box arrow-left' onClick={this.previous}><img className='plus_svg arrow_back' src={arrowLeft} alt="arrowBack" /></span>
                                 <div className='box header-text'>
                                     {this.renderTodayLabel()}
                                     {this.renderMonthLabel()}
                                 </div>
-                                <span className='box arrow-right' onClick={this.next}>{'>'}</span>
+                                <span className='box arrow-right' onClick={this.next}><img className='plus_svg arrow_back' src={arrowRight} alt="arrowBack" /></span>
                             </div>
                             <DayNames />
                         </header>

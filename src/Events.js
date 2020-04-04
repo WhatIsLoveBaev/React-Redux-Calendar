@@ -4,7 +4,7 @@ import Edit from './edit.svg'
 
 export default class Events extends React.Component {
         state = {
-
+            monthEvents: ''
         }
 
         editValues = () => {
@@ -44,6 +44,7 @@ export default class Events extends React.Component {
                         document.getElementById('timeMinutes').style.borderBottom = '1px solid #4B0082'
                     }, 1500)
                 }
+                
             } 
             else {
                 monthEvents.map((event, i) => {
@@ -63,15 +64,16 @@ export default class Events extends React.Component {
                         event[i] = eventEdit
                         monthEventsEdit.splice(index, 1, event[i])
                         
-                        this.setState({ 
+                         this.setState({ 
                             monthEvents: monthEventsEdit
-                        })   
+                        })  
+                        
                     }
                     
                 })                 
         }
-        document.querySelector('.event_button').style.display = 'none'
-        document.querySelector('.hide').style.display = 'flex'
+        /* document.querySelector('.event_button').style.display = 'none'
+        document.querySelector('.hide').style.display = 'flex' */
     }
 
     render() {
@@ -83,9 +85,9 @@ export default class Events extends React.Component {
         const monthEventsRendered = monthEvents.map((event, i) => {
             if (event.dynamic) {
                 return (
-                    <div key={i} className='event-container'>
+                    <div key={i} className='event-container' >
                         <input 
-                        style={{width: '28%', border: '0', borderBottom: '1px solid #4B0082', textDecoration: 'none', margin: '0 auto', textAlign: 'center', color: 'black'}} 
+                        style={{width: '28%', border: '0', borderBottom: '1px solid #4B0082', fontWeight: 'normal', margin: '0 auto', textAlign: 'center', color: 'black'}} 
                         id='eventName' type='text' 
                         className='event_title_label animError' 
                         defaultValue={event.title}
@@ -94,11 +96,11 @@ export default class Events extends React.Component {
 
                         <div className='event_info_wrapper'>
                             <div>
-                                <div className='event_time_label' style={{display: 'block'}}>
+                                <div className='event_time_label event_info' style={{display: 'block', width: '90%'}}>
                                     <span style={{color: 'black', display: 'block'}}>Время: </span>
 
                                     <input 
-                                    style={{width: '7%', color: 'black', border: '0', borderBottom: '1px solid #4B0082'}} 
+                                    style={{width: '9%', textAlign: 'center', color: 'black', border: '0', borderBottom: '1px solid #4B0082'}} 
                                     type='text'
                                     className='event_time_label animError' 
                                     id='timeHours' 
@@ -108,7 +110,7 @@ export default class Events extends React.Component {
                                     />
                                     <span>:</span>
                                     <input 
-                                    style={{width: '7%', border: '0', borderBottom: '1px solid #4B0082', color: 'black'}} 
+                                    style={{width: '9%', textAlign: 'center', border: '0', borderBottom: '1px solid #4B0082', color: 'black'}} 
                                     type='text' 
                                     className='event_time_label animError'
                                     maxLength='2' 
@@ -120,7 +122,7 @@ export default class Events extends React.Component {
                                     </div>
                             </div>
                             <div>
-                                <div className='event_people_label'>
+                                <div className='event_people_label event_info'>
                                     <span style={{color: 'black'}}>Участники: </span>
 
                                     <input 
@@ -140,13 +142,13 @@ export default class Events extends React.Component {
                             type='text' 
                             id='description' 
                             className='event_description_label' 
-                            style={{border: '0', borderBottom: '1px solid #4B0082'}}
+                            style={{border: '0', borderBottom: '1px solid #4B0082', color: 'black'}}
                             defaultValue={event.description}
                             ref={ref => this.inputDescription = ref}
                             />             
                         </div>
                         <button onClick={this.editValues} className='event_button'>Сохранить</button> 
-                        <button onClick={() => { this.props.updateData(this.state.monthEvents)}} className='event_button hide'>Закрыть</button>
+                        <button onClick={() => this.props.updateData(this.state.monthEvents)} className='event_button'>Закрыть</button>
                     </div>
                 )
             } else {
@@ -160,14 +162,14 @@ export default class Events extends React.Component {
                         </div>
                         
                         <div className='event_info_wrapper'>
-                            <div>
-                                <div className='event_time_label'><span style={{color: 'black'}}>Время: </span>{event.time}</div>
+                            <div className='event_info'>
+                                <div className='event_time_label'><span style={{color: 'black', display: 'block'}}>Время: </span>{event.time}</div>
                             </div>
-                            <div>
-                                <div className='event_people_label'><span style={{color: 'black'}}>Участники: </span>{event.people}</div>
+                            <div className='event_info'>
+                                <div className='event_people_label'><span style={{color: 'black', display: 'block'}}>Участники: </span>{event.people}</div>
                             </div> 
                         </div>
-                        <div className='event_description_label'>{event.description}</div>
+                        <div className='event_description_label'><span style={{color: 'black', display: 'block'}}>Описание: </span>{event.description}</div>
                     </div>
                 )
             }
