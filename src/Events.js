@@ -72,8 +72,8 @@ export default class Events extends React.Component {
                     
                 })                 
         }
-        /* document.querySelector('.event_button').style.display = 'none'
-        document.querySelector('.hide').style.display = 'flex' */
+        document.querySelector('.event_button').style.display = 'none'
+        document.querySelector('.hide').style.display = 'flex'
     }
 
     render() {
@@ -148,7 +148,7 @@ export default class Events extends React.Component {
                             />             
                         </div>
                         <button onClick={this.editValues} className='event_button'>Сохранить</button> 
-                        <button onClick={() => this.props.updateData(this.state.monthEvents)} className='event_button'>Закрыть</button>
+                        <button onClick={() => this.props.updateData(this.state.monthEvents)} className='event_button hide'>Закрыть</button>
                     </div>
                 )
             } else {
