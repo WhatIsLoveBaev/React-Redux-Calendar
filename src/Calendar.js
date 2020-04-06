@@ -30,7 +30,6 @@ export default class Calendar extends React.Component {
         this.showCalendar = this.showCalendar.bind(this)
         this.goToCurrentMonthView = this.goToCurrentMonthView.bind(this)
         this.takeValues = this.takeValues.bind(this)
-        console.log(this.state.selectedMonthEvents)
     }
 
     componentDidMount() {
@@ -249,7 +248,8 @@ export default class Calendar extends React.Component {
     updateData = (events) => {
         this.setState({ selectedMonthEvents: events })
         localStorage.setItem('CalendarEvents', JSON.stringify(events));
-     }
+    }
+
 
 
     render() {

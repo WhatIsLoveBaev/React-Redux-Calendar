@@ -295,6 +295,7 @@ body {
 }
 .arrow_back {
   border-radius: 40%;
+  cursor: pointer;
 }
 .svg_wrap {
   width: 100%;

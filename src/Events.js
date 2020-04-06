@@ -72,8 +72,6 @@ export default class Events extends React.Component {
                     
                 })                 
         }
-        document.querySelector('.event_button').style.display = 'none'
-        document.querySelector('.hide').style.display = 'flex'
     }
 
     render() {
@@ -92,6 +90,7 @@ export default class Events extends React.Component {
                         className='event_title_label animError' 
                         defaultValue={event.title}
                         ref={ref => this.inputName = ref}
+                        onChange={this.editValues}
                         />
 
                         <div className='event_info_wrapper'>
@@ -107,6 +106,7 @@ export default class Events extends React.Component {
                                     maxLength='2' 
                                     defaultValue={'12'}
                                     ref={ref => this.inputHours = ref}
+                                    onChange={this.editValues}
                                     />
                                     <span>:</span>
                                     <input 
@@ -117,6 +117,7 @@ export default class Events extends React.Component {
                                     defaultValue={'00'}
                                     id='timeMinutes' 
                                     ref={ref => this.inputMinutes = ref}
+                                    onChange={this.editValues}
                                     />
 
                                     </div>
@@ -132,6 +133,7 @@ export default class Events extends React.Component {
                                     className='event_people_label' 
                                     defaultValue={event.people}
                                     ref={ref => this.inputPeople = ref}
+                                    onChange={this.editValues}
                                     />
 
                                 </div>
@@ -145,10 +147,10 @@ export default class Events extends React.Component {
                             style={{border: '0', borderBottom: '1px solid #4B0082', color: 'black'}}
                             defaultValue={event.description}
                             ref={ref => this.inputDescription = ref}
+                            onChange={this.editValues}
                             />             
                         </div>
-                        <button onClick={this.editValues} className='event_button'>Сохранить</button> 
-                        <button onClick={() => this.props.updateData(this.state.monthEvents)} className='event_button hide'>Закрыть</button>
+                        <button onClick={() => this.props.updateData(this.state.monthEvents)} className='event_button'>Сохранить</button>
                     </div>
                 )
             } else {
