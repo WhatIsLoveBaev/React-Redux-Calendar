@@ -273,6 +273,7 @@ body {
 .event_time_label, .event_people_label, .event_description_label, .event_title_label {
   color: #6A5ACD;
   font-family: 'Philosopher', sans-serif;
+  font-size: 16px;
 }
 .event_title_label {
   display: flex;

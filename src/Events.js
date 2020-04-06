@@ -99,7 +99,7 @@ export default class Events extends React.Component {
                                     <span style={{color: 'black', display: 'block'}}>Время: </span>
 
                                     <input 
-                                    style={{width: '9%', textAlign: 'center', color: 'black', border: '0', borderBottom: '1px solid #4B0082'}} 
+                                    style={{width: '10%', textAlign: 'center', color: 'black', border: '0', borderBottom: '1px solid #4B0082'}} 
                                     type='text'
                                     className='event_time_label animError' 
                                     id='timeHours' 
@@ -110,7 +110,7 @@ export default class Events extends React.Component {
                                     />
                                     <span>:</span>
                                     <input 
-                                    style={{width: '9%', textAlign: 'center', border: '0', borderBottom: '1px solid #4B0082', color: 'black'}} 
+                                    style={{width: '10%', textAlign: 'center', border: '0', borderBottom: '1px solid #4B0082', color: 'black'}} 
                                     type='text' 
                                     className='event_time_label animError'
                                     maxLength='2' 

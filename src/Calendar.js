@@ -76,6 +76,13 @@ export default class Calendar extends React.Component {
         this.setState({selectedMonth: moment()})
     }
     showCalendar() {
+        const monthEvents = this.state.selectedMonthEvents
+        monthEvents.map((event) => {
+            if (event.dynamic) {
+                event.dynamic = false
+            }
+        })
+
         this.setState({
             selectedMonth: this.state.selectedMonth,
             selectedDay: this.state.selectedDay,
@@ -150,8 +157,15 @@ export default class Calendar extends React.Component {
     }
     addEvent() {
         const currentSelectedDate = this.state.selectedDay
+        const monthEvents = this.state.selectedMonthEvents
         const createEvent = this.state.createEvent
         let isAfterDay = moment().startOf('day').subtract(1, 'd')
+
+        monthEvents.map((event) => {
+            if (event.dynamic) {
+                event.dynamic = false
+            }
+        })
 
         if (currentSelectedDate.isAfter(isAfterDay)) {
            this.setState({ createEvent: !createEvent })
@@ -207,21 +221,21 @@ export default class Calendar extends React.Component {
                 document.getElementById('eventName').style.border = '1px solid red'
                 setTimeout(() => {
                     document.getElementById('eventName').style.border = '1px solid white'
-                }, 1500)
+                }, 1000)
             }
     
             if (isNaN(parseInt(hours)) || parseInt(hours) > 23 || hours.length === 0) {
                 document.getElementById('timeHours').style.border = '1px solid red'
                 setTimeout(() => {
                     document.getElementById('timeHours').style.border = '1px solid white'
-                }, 1500)
+                }, 1000)
             }
     
             if (isNaN(parseInt(minutes)) || parseInt(minutes) > 59 || minutes.length === 0) {
                 document.getElementById('timeMinutes').style.border = '1px solid red'
                 setTimeout(() => {
                     document.getElementById('timeMinutes').style.border = '1px solid white'
-                }, 1500)
+                }, 1000)
             }
         } 
         else {
