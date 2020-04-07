@@ -13,6 +13,10 @@ export default class Events extends React.Component {
             let minutes = this.inputMinutes.value;
             let people = this.inputPeople.value;
             let description = this.inputDescription.value;
+
+            let nameRed = this.inputName
+            let hoursRed = this.inputHours
+            let minutesRed = this.inputMinutes
     
             const monthEvents = this.props.selectedMonthEvents 
         
@@ -22,26 +26,26 @@ export default class Events extends React.Component {
                 (isNaN(parseInt(minutes)) || parseInt(minutes) > 59 || minutes.length === 0)) {
     
                 if (name.length === 0) {
-                    document.getElementById('eventName').style.border = '1px solid red'
+                    nameRed.style.border = '1px solid red'
                     setTimeout(() => {
-                        document.getElementById('eventName').style.border = '1px solid white'
-                        document.getElementById('eventName').style.borderBottom = '1px solid #4B0082'
+                        nameRed.style.border = '1px solid white'
+                        nameRed.style.borderBottom = '1px solid #4B0082'
                     }, 1500)
                 }
         
                 if (isNaN(parseInt(hours)) || parseInt(hours) > 23 || hours.length === 0) {
-                    document.getElementById('timeHours').style.border = '1px solid red'
+                    hoursRed.style.border = '1px solid red'
                     setTimeout(() => {
-                        document.getElementById('timeHours').style.border = '1px solid white'
-                        document.getElementById('timeHours').style.borderBottom = '1px solid #4B0082'
+                        hoursRed.style.border = '1px solid white'
+                        hoursRed.style.borderBottom = '1px solid #4B0082'
                     }, 1500)
                 }
         
                 if (isNaN(parseInt(minutes)) || parseInt(minutes) > 59 || minutes.length === 0) {
-                    document.getElementById('timeMinutes').style.border = '1px solid red'
+                    minutesRed.style.border = '1px solid red'
                     setTimeout(() => {
-                        document.getElementById('timeMinutes').style.border = '1px solid white'
-                        document.getElementById('timeMinutes').style.borderBottom = '1px solid #4B0082'
+                        minutesRed.style.border = '1px solid white'
+                        minutesRed.style.borderBottom = '1px solid #4B0082'
                     }, 1500)
                 }
                 
@@ -66,13 +70,13 @@ export default class Events extends React.Component {
                         
                          this.setState({ 
                             monthEvents: monthEventsEdit
-                        })  
-                        
-                    }
-                    
-                })                 
+                        })
+                    } 
+                })  
+                document.querySelector('.event_save').style.display = 'none'               
+                document.querySelector('.event_close').classList.remove('hide')      
+            }
         }
-    }
 
     render() {
         const currentSelectedDay = this.props.selectedDay
@@ -85,12 +89,11 @@ export default class Events extends React.Component {
                 return (
                     <div key={i} className='event-container' >
                         <input 
-                        style={{width: '28%', border: '0', borderBottom: '1px solid #4B0082', fontWeight: 'normal', margin: '0 auto', textAlign: 'center', color: 'black'}} 
+                        style={{width: '28%', border: '1px solid white', borderBottom: '1px solid #4B0082', fontWeight: 'normal', margin: '0 auto', textAlign: 'center', color: 'black'}} 
                         id='eventName' type='text' 
                         className='event_title_label animError' 
                         defaultValue={event.title}
                         ref={ref => this.inputName = ref}
-                        onChange={this.editValues}
                         />
 
                         <div className='event_info_wrapper'>
@@ -99,25 +102,23 @@ export default class Events extends React.Component {
                                     <span style={{color: 'black', display: 'block'}}>Время: </span>
 
                                     <input 
-                                    style={{width: '10%', textAlign: 'center', color: 'black', border: '0', borderBottom: '1px solid #4B0082'}} 
+                                    style={{width: '10%', textAlign: 'center', color: 'black', border: '1px solid white', borderBottom: '1px solid #4B0082'}} 
                                     type='text'
                                     className='event_time_label animError' 
                                     id='timeHours' 
                                     maxLength='2' 
                                     defaultValue={'12'}
                                     ref={ref => this.inputHours = ref}
-                                    onChange={this.editValues}
                                     />
                                     <span>:</span>
                                     <input 
-                                    style={{width: '10%', textAlign: 'center', border: '0', borderBottom: '1px solid #4B0082', color: 'black'}} 
+                                    style={{width: '10%', textAlign: 'center', border: '1px solid white', borderBottom: '1px solid #4B0082', color: 'black'}} 
                                     type='text' 
                                     className='event_time_label animError'
                                     maxLength='2' 
                                     defaultValue={'00'}
                                     id='timeMinutes' 
                                     ref={ref => this.inputMinutes = ref}
-                                    onChange={this.editValues}
                                     />
 
                                     </div>
@@ -129,11 +130,10 @@ export default class Events extends React.Component {
                                     <input 
                                     type='text' 
                                     id='people'
-                                    style={{width: '65%', border: '0', borderBottom: '1px solid #4B0082', textAlign: 'center', color: 'black'}}
+                                    style={{width: '65%', border: '1px solid white', borderBottom: '1px solid #4B0082', textAlign: 'center', color: 'black'}}
                                     className='event_people_label' 
                                     defaultValue={event.people}
                                     ref={ref => this.inputPeople = ref}
-                                    onChange={this.editValues}
                                     />
 
                                 </div>
@@ -147,10 +147,10 @@ export default class Events extends React.Component {
                             style={{border: '0', borderBottom: '1px solid #4B0082', color: 'black'}}
                             defaultValue={event.description}
                             ref={ref => this.inputDescription = ref}
-                            onChange={this.editValues}
                             />             
                         </div>
-                        <button onClick={() => this.props.updateData(this.state.monthEvents)} className='event_button'>Сохранить</button>
+                        <button onClick={this.editValues} className='event_button event_save'>Сохранить</button>
+                        <button onClick={() => this.props.updateData(this.state.monthEvents)} className='event_button event_close hide'>Закрыть</button>
                     </div>
                 )
             } else {

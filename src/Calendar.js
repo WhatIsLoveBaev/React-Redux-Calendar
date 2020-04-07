@@ -91,6 +91,7 @@ export default class Calendar extends React.Component {
         })
     }
     showEvents() {
+        clearTimeout()
         this.setState({
             selectedMonth: this.state.selectedMonth,
             selectedDay: this.state.selectedDay,
@@ -201,11 +202,15 @@ export default class Calendar extends React.Component {
         this.setState({monthEvents : monthEvents}) 
     }
     takeValues() {
-        let name = this.inputName.value;
-        let hours = this.inputHours.value;
-        let minutes = this.inputMinutes.value;
-        let people = this.inputPeople.value;
-        let description = this.inputDescription.value;
+        let name = this.inputName.value
+        let hours = this.inputHours.value
+        let minutes = this.inputMinutes.value
+        let people = this.inputPeople.value
+        let description = this.inputDescription.value
+
+        let nameRed = this.inputName
+        let hoursRed = this.inputHours
+        let minutesRed = this.inputMinutes
 
         const monthEvents = this.state.selectedMonthEvents
         const currentSelectedDate = this.state.selectedDay
@@ -218,23 +223,23 @@ export default class Calendar extends React.Component {
             (isNaN(parseInt(minutes)) || parseInt(minutes) > 59 || minutes.length === 0)) {
 
             if (name.length === 0) {
-                document.getElementById('eventName').style.border = '1px solid red'
+                nameRed.classList.add('errorBorder')
                 setTimeout(() => {
-                    document.getElementById('eventName').style.border = '1px solid white'
+                    nameRed.classList.remove('errorBorder')
                 }, 1000)
             }
     
             if (isNaN(parseInt(hours)) || parseInt(hours) > 23 || hours.length === 0) {
-                document.getElementById('timeHours').style.border = '1px solid red'
+                hoursRed.classList.add('errorBorder')
                 setTimeout(() => {
-                    document.getElementById('timeHours').style.border = '1px solid white'
+                    hoursRed.classList.remove('errorBorder')
                 }, 1000)
             }
     
             if (isNaN(parseInt(minutes)) || parseInt(minutes) > 59 || minutes.length === 0) {
-                document.getElementById('timeMinutes').style.border = '1px solid red'
+                minutesRed.classList.add('errorBorder')
                 setTimeout(() => {
-                    document.getElementById('timeMinutes').style.border = '1px solid white'
+                    minutesRed.classList.remove('errorBorder')
                 }, 1000)
             }
         } 
@@ -279,7 +284,9 @@ export default class Calendar extends React.Component {
                                 {this.renderDayLabel()}
                             </div>
                             <div className='row button-container'>
-                                <div className='svg_wrap plus_svg' onClick={this.showEvents}><img className='plus_svg arrow_back' src={arrowLeft} alt="arrowBack" /></div>
+                                <div className='svg_wrap plus_svg' onClick={this.showEvents}>
+                                    <img className='plus_svg arrow_back' src={arrowLeft} alt="arrowBack" />
+                                    </div>
                             </div>
                         </header>
 
@@ -289,7 +296,7 @@ export default class Calendar extends React.Component {
                                 <label>Название события:</label>
                                 <input 
                                 style={{width: '35%'}} 
-                                id='eventName' type='text' 
+                                id='eventName' type='text'
                                 className='event_input animError event_title_label' 
                                 placeholder='Покупки' 
                                 ref={ref => this.inputName = ref}
