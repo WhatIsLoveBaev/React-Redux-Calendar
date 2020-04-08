@@ -2,14 +2,13 @@ import React from 'react'
 import moment from 'moment'
 /* import 'moment/locale/ru' */
 
-import Events from './Events'
 import Week from './Week'
-import DayNames from './DayNames'
+
+import CreateEvent from './CreateEvent'
+import ShowEvents from './ShowEvents'
+import ShowCalendar from './ShowCalendar'
 
 import './App.css'
-import Plus from './plus.svg'
-import arrowLeft from './arrow_left.svg'
-import arrowRight from './arrow_right.svg'
 
 export default class Calendar extends React.Component {
     constructor(props) {
@@ -22,14 +21,6 @@ export default class Calendar extends React.Component {
             showEvents: false,
             createEvent: false
         }
-
-        this.previous = this.previous.bind(this)
-        this.next = this.next.bind(this)
-        this.addEvent = this.addEvent.bind(this)
-        this.showEvents = this.showEvents.bind(this)
-        this.showCalendar = this.showCalendar.bind(this)
-        this.goToCurrentMonthView = this.goToCurrentMonthView.bind(this)
-        this.takeValues = this.takeValues.bind(this)
     }
 
     componentDidMount() {
@@ -57,11 +48,11 @@ export default class Calendar extends React.Component {
             this.setState({ selectedMonthEvents : allEvents});
         }
     }
-    previous() {
+    previous = () => {
         const currentMonthView = this.state.selectedMonth
         this.setState({ selectedMonth: currentMonthView.subtract(1, 'month')})
     }
-    next() {
+    next = () => {
         const currentMonthView = this.state.selectedMonth
         this.setState({ selectedMonth: currentMonthView.add(1, 'month')})
     }
@@ -72,10 +63,10 @@ export default class Calendar extends React.Component {
             showEvents: true
         })
     }
-    goToCurrentMonthView() {
+    goToCurrentMonthView = () => {
         this.setState({selectedMonth: moment()})
     }
-    showCalendar() {
+    showCalendar = () => {
         const monthEvents = this.state.selectedMonthEvents
         monthEvents.map((event) => {
             if (event.dynamic) {
@@ -90,7 +81,7 @@ export default class Calendar extends React.Component {
             createEvent: false,
         })
     }
-    showEvents() {
+    showEvents = () => {
         clearTimeout()
         this.setState({
             selectedMonth: this.state.selectedMonth,
@@ -99,7 +90,7 @@ export default class Calendar extends React.Component {
             createEvent: false,
         })
     }
-    renderMonthLabel() {
+    renderMonthLabel = () => {
         const state = this.state.selectedMonth
         let current = state.format('MMMM YYYY')
         return (
@@ -108,7 +99,7 @@ export default class Calendar extends React.Component {
             </span>
         )
     }
-    renderDayLabel() {
+    renderDayLabel = () => {
         const state = this.state.selectedDay
         let current = state.format('DD MMMM YYYY')
         return (
@@ -117,14 +108,14 @@ export default class Calendar extends React.Component {
             </span>
         )
     }
-    renderTodayLabel() {
+    renderTodayLabel = () => {
         return (
             <span className='box today-label' onClick={this.goToCurrentMonthView}>
                 Сегодня
             </span>
         )
     }
-    renderWeeks() {
+    renderWeeks = () => {
         const currentMonthView = this.state.selectedMonth
         const currentSelectedDay = this.state.selectedDay
         const monthEvents = this.state.selectedMonthEvents
@@ -156,7 +147,7 @@ export default class Calendar extends React.Component {
         }
         return weeks
     }
-    addEvent() {
+    addEvent = () => {
         const currentSelectedDate = this.state.selectedDay
         const monthEvents = this.state.selectedMonthEvents
         const createEvent = this.state.createEvent
@@ -176,7 +167,7 @@ export default class Calendar extends React.Component {
             }
         }
     }
-    removeEvent(i) {
+    removeEvent = (i) => {
         const monthEvents = this.state.selectedMonthEvents.slice()
 
         if (window.confirm('Вы хотите удалить это событие?')) {
@@ -192,7 +183,7 @@ export default class Calendar extends React.Component {
             localStorage.setItem('CalendarEvents', JSON.stringify(monthEvents));
         }
     }
-    editEvent(i) {
+    editEvent = (i) => {
         const monthEvents = this.state.selectedMonthEvents
         const idx = i
 
@@ -201,71 +192,11 @@ export default class Calendar extends React.Component {
         }
         this.setState({monthEvents : monthEvents}) 
     }
-    takeValues() {
-        let name = this.inputName.value
-        let hours = this.inputHours.value
-        let minutes = this.inputMinutes.value
-        let people = this.inputPeople.value
-        let description = this.inputDescription.value
-
-        let nameRed = this.inputName
-        let hoursRed = this.inputHours
-        let minutesRed = this.inputMinutes
-
-        const monthEvents = this.state.selectedMonthEvents
-        const currentSelectedDate = this.state.selectedDay
-    
-        const newEvents = []
-
-        if (
-            (name.length === 0) ||
-            (isNaN(parseInt(hours)) || parseInt(hours) > 23 || hours.length === 0) ||
-            (isNaN(parseInt(minutes)) || parseInt(minutes) > 59 || minutes.length === 0)) {
-
-            if (name.length === 0) {
-                nameRed.classList.add('errorBorder')
-                setTimeout(() => {
-                    nameRed.classList.remove('errorBorder')
-                }, 1000)
-            }
-    
-            if (isNaN(parseInt(hours)) || parseInt(hours) > 23 || hours.length === 0) {
-                hoursRed.classList.add('errorBorder')
-                setTimeout(() => {
-                    hoursRed.classList.remove('errorBorder')
-                }, 1000)
-            }
-    
-            if (isNaN(parseInt(minutes)) || parseInt(minutes) > 59 || minutes.length === 0) {
-                minutesRed.classList.add('errorBorder')
-                setTimeout(() => {
-                    minutesRed.classList.remove('errorBorder')
-                }, 1000)
-            }
-        } 
-        else {
-            let newEvent = {
-                title:  name,
-                time: `${hours}:${minutes}`,
-                people: people,
-                description: description,
-                date: currentSelectedDate,
-                dynamic: false
-            }
-            newEvents.push(newEvent)
-
-            for (let i=0; i< newEvents.length; i++) {
-                monthEvents.push(newEvents[i])
-            }
-            this.setState({ 
-                selectedMonthEvents: monthEvents,
-                createEvent: false
+    updateData = (events, close) => {
+        this.setState({ 
+            selectedMonthEvents: events,
+            createEvent: close
             })
-            localStorage.setItem('CalendarEvents', JSON.stringify(monthEvents));
-        }
-    }
-    updateData = (events) => {
-        this.setState({ selectedMonthEvents: events })
         localStorage.setItem('CalendarEvents', JSON.stringify(events));
     }
 
@@ -275,130 +206,37 @@ export default class Calendar extends React.Component {
         const showEvents = this.state.showEvents
         const createEvent = this.state.createEvent
 
-         if (createEvent) {
-                return (
-                    <div className='calendar_container'>
-                    <section className='main-calendar'>
-                        <header className='calendar-header'>
-                            <div className='row title-header'>
-                                {this.renderDayLabel()}
-                            </div>
-                            <div className='row button-container'>
-                                <div className='svg_wrap plus_svg' onClick={this.showEvents}>
-                                    <img className='plus_svg arrow_back' src={arrowLeft} alt="arrowBack" />
-                                    </div>
-                            </div>
-                        </header>
-
-                        <div className='create_event_container'>
-
-                            <div className='event_name'>
-                                <label>Название события:</label>
-                                <input 
-                                style={{width: '35%'}} 
-                                id='eventName' type='text'
-                                className='event_input animError event_title_label' 
-                                placeholder='Покупки' 
-                                ref={ref => this.inputName = ref}
-                                />
-                            </div>
-        
-                            <div className='event_time'>
-                                <label>Время события:</label>
-                                <input 
-                                style={{width: '5%'}} 
-                                type='text'
-                                className='event_input animError event_title_label' 
-                                id='timeHours' 
-                                maxLength='2' 
-                                placeholder='12'
-                                ref={ref => this.inputHours = ref}
-                                />
-                                <span>:</span>
-                                <input 
-                                style={{width: '5%'}} 
-                                type='text' 
-                                className='event_input animError event_title_label'
-                                maxLength='2' 
-                                placeholder='00'
-                                id='timeMinutes' 
-                                ref={ref => this.inputMinutes = ref}
-                                />
-                            </div>
-        
-                            <div className='event_people'>
-                                <label>Участники:</label>
-                                <input 
-                                type='text' 
-                                id='people' 
-                                className='event_input event_title_label' 
-                                placeholder='Иван, Пётр'
-                                ref={ref => this.inputPeople = ref}
-                                />
-                            </div>
-        
-                            <div className='event_description'>
-                                <label>Описание:</label>
-                                <input 
-                                type='text' 
-                                id='description' 
-                                className='event_input event_title_label' 
-                                placeholder='Купить хлеба и молока'
-                                ref={ref => this.inputDescription = ref}
-                                />
-                            </div>
-        
-                            <button onClick={this.takeValues} className='event_button'>Создать событие</button>
-                        </div>
-                    </section>
-                    </div>
-                )
+        if (createEvent) {
+            return <CreateEvent 
+            renderDayLabel={this.renderDayLabel} 
+            showEvents={this.showEvents}
+            monthEvents={this.state.selectedMonthEvents}
+            currentSelectedDate={this.state.selectedDay}
+            updateData={this.updateData}
+            />
         }
+
         if (showEvents) {
-            return (
-                <div className='calendar_container'>
-                    <section className='main-calendar'>
-                        <header className='calendar-header'>
-                            <div className='row title-header'>
-                                {this.renderDayLabel()}
-                            </div>
-                            <div className='button-container'>
-                                <div className='svg_wrap plus_svg' onClick={this.showCalendar}><img className='plus_svg arrow_back' src={arrowLeft} alt="arrowBack" /></div>
-                                <div className='svg_wrap plus plus_svg' onClick={this.addEvent}><img className='plus_svg' src={Plus} alt="plus" /></div>
-                            </div>
-                        </header>
-                        <Events 
-                            selectedMonth={this.state.selectedMonth}
-                            selectedDay={this.state.selectedDay}
-                            selectedMonthEvents={this.state.selectedMonthEvents}
-                            removeEvent={i => this.removeEvent(i)}
-                            editEvent={i => this.editEvent(i)}
-                            updateData={this.updateData}
-                        />
-                    </section>
-                </div>
-            )
+            return <ShowEvents 
+            renderDayLabel={this.renderDayLabel}
+            showCalendar={this.showCalendar}
+            addEvent={this.addEvent}
+            selectedMonth={this.state.selectedMonth}
+            selectedDay={this.state.selectedDay}
+            selectedMonthEvents={this.state.selectedMonthEvents}
+            removeEvent={i => this.removeEvent(i)}
+            editEvent={i => this.editEvent(i)}
+            updateData={this.updateData}
+            />
         } else {
-            return (
-                <div className='calendar_container'>
-                    <section className='main-calendar'>
-                        <header className='calendar-header'>
-                            <div className='row title-header'>
-                                <span className='box arrow-left' onClick={this.previous}><img className='plus_svg arrow_back' src={arrowLeft} alt="arrowBack" /></span>
-                                <div className='box header-text'>
-                                    {this.renderTodayLabel()}
-                                    {this.renderMonthLabel()}
-                                </div>
-                                <span className='box arrow-right' onClick={this.next}><img className='plus_svg arrow_back' src={arrowRight} alt="arrowBack" /></span>
-                            </div>
-                            <DayNames />
-                        </header>
-                        <div className='days-container'>
-                            {this.renderWeeks()}
-                        </div>
-                    </section>
-                </div>
-            )
+            return <ShowCalendar 
+            previous={this.previous}
+            renderTodayLabel={this.renderTodayLabel}
+            renderMonthLabel={this.renderMonthLabel}
+            next={this.next}
+            renderWeeks={this.renderWeeks}
+            selectedDay={this.state.selectedDay}
+            />
         }
     }
 }

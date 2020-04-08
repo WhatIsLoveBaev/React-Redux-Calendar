@@ -7,13 +7,20 @@ export default class Events extends React.Component {
             monthEvents: ''
         }
 
+        componentDidUpdate(prevProps, prevState) {
+            if (prevState !== this.state) {
+                const btn = () => this.props.updateData(this.state.monthEvents)
+                btn()
+            }
+        }
+
         editValues = () => {
             let name = this.inputName.value;
             let hours = this.inputHours.value;
             let minutes = this.inputMinutes.value;
             let people = this.inputPeople.value;
             let description = this.inputDescription.value;
-
+    
             let nameRed = this.inputName
             let hoursRed = this.inputHours
             let minutesRed = this.inputMinutes
@@ -51,7 +58,7 @@ export default class Events extends React.Component {
                 
             } 
             else {
-                monthEvents.map((event, i) => {
+                return monthEvents.map((event, i) => {
                     if (event.dynamic) {
         
                         let eventEdit = {
@@ -72,11 +79,10 @@ export default class Events extends React.Component {
                             monthEvents: monthEventsEdit
                         })
                     } 
-                })  
-                document.querySelector('.event_save').style.display = 'none'               
-                document.querySelector('.event_close').classList.remove('hide')      
+                }) 
             }
         }
+        
 
     render() {
         const currentSelectedDay = this.props.selectedDay
@@ -150,7 +156,6 @@ export default class Events extends React.Component {
                             />             
                         </div>
                         <button onClick={this.editValues} className='event_button event_save'>Сохранить</button>
-                        <button onClick={() => this.props.updateData(this.state.monthEvents)} className='event_button event_close hide'>Закрыть</button>
                     </div>
                 )
             } else {
