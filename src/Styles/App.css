@@ -166,7 +166,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .box {
   flex-grow: 1;
   display: flex;
@@ -175,12 +174,6 @@ body {
   flex: 1;
   height: 100%;
   transition: all 0.4s ease-in-out 0s;
-}
-.box.arrow:hover {
-  background-color: white;
-  cursor: pointer;
-  color: #1e88e5;
-  transition: all 0.2s ease-in-out 0s;
 }
 .day {
   display: flex;
@@ -269,6 +262,7 @@ body {
 
 .event_description_label {
   margin-top: 10px;
+  text-align: center;
 }
 .event_time_label, .event_people_label, .event_description_label, .event_title_label {
   color: #6A5ACD;
@@ -325,4 +319,20 @@ input {
 }
 .errorBorder {
   border: 1px solid red;
+}
+.eventsInputs {
+    width: 28%;
+    border: 1px solid white; 
+    border-bottom: 1px solid #4B0082; 
+    font-weight: normal;
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+  }
+.eventsInputsTime {
+  width: 10%;
+}
+.black_block {
+  color: black;
+  display: block;
 }

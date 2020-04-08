@@ -2,13 +2,13 @@ import React from 'react'
 import moment from 'moment'
 /* import 'moment/locale/ru' */
 
-import Week from './Week'
+import Week from '../Week'
 
-import CreateEvent from './CreateEvent'
-import ShowEvents from './ShowEvents'
-import ShowCalendar from './ShowCalendar'
+import { CreateEvent, ShowEvents } from '../Events'
 
-import './App.css'
+import ShowCalendar from '../ShowCalendar'
+
+import '../../Styles/App.css'
 
 export default class Calendar extends React.Component {
     constructor(props) {
@@ -68,7 +68,7 @@ export default class Calendar extends React.Component {
     }
     showCalendar = () => {
         const monthEvents = this.state.selectedMonthEvents
-        monthEvents.map((event) => {
+        monthEvents.forEach((event) => {
             if (event.dynamic) {
                 event.dynamic = false
             }
@@ -153,7 +153,7 @@ export default class Calendar extends React.Component {
         const createEvent = this.state.createEvent
         let isAfterDay = moment().startOf('day').subtract(1, 'd')
 
-        monthEvents.map((event) => {
+        monthEvents.forEach((event) => {
             if (event.dynamic) {
                 event.dynamic = false
             }
@@ -200,8 +200,7 @@ export default class Calendar extends React.Component {
         localStorage.setItem('CalendarEvents', JSON.stringify(events));
     }
 
-
-
+    
     render() {
         const showEvents = this.state.showEvents
         const createEvent = this.state.createEvent

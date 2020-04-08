@@ -1,6 +1,6 @@
 import React from 'react'
-import Trash from './trash.svg'
-import Edit from './edit.svg'
+import Trash from '../../Svg/trash.svg'
+import Edit from '../../Svg/edit.svg'
 
 export default class Events extends React.Component {
         state = {
@@ -58,7 +58,7 @@ export default class Events extends React.Component {
                 
             } 
             else {
-                return monthEvents.map((event, i) => {
+                monthEvents.forEach((event, i) => {
                     if (event.dynamic) {
         
                         let eventEdit = {
@@ -80,7 +80,8 @@ export default class Events extends React.Component {
                         })
                     } 
                 }) 
-            }
+                }
+        
         }
         
 
@@ -95,9 +96,8 @@ export default class Events extends React.Component {
                 return (
                     <div key={i} className='event-container' >
                         <input 
-                        style={{width: '28%', border: '1px solid white', borderBottom: '1px solid #4B0082', fontWeight: 'normal', margin: '0 auto', textAlign: 'center', color: 'black'}} 
                         id='eventName' type='text' 
-                        className='event_title_label animError' 
+                        className='event_title_label animError eventsInputs' 
                         defaultValue={event.title}
                         ref={ref => this.inputName = ref}
                         />
@@ -108,9 +108,8 @@ export default class Events extends React.Component {
                                     <span style={{color: 'black', display: 'block'}}>Время: </span>
 
                                     <input 
-                                    style={{width: '10%', textAlign: 'center', color: 'black', border: '1px solid white', borderBottom: '1px solid #4B0082'}} 
                                     type='text'
-                                    className='event_time_label animError' 
+                                    className='event_time_label animError eventsInputs eventsInputsTime' 
                                     id='timeHours' 
                                     maxLength='2' 
                                     defaultValue={'12'}
@@ -118,9 +117,8 @@ export default class Events extends React.Component {
                                     />
                                     <span>:</span>
                                     <input 
-                                    style={{width: '10%', textAlign: 'center', border: '1px solid white', borderBottom: '1px solid #4B0082', color: 'black'}} 
                                     type='text' 
-                                    className='event_time_label animError'
+                                    className='event_time_label animError eventsInputs eventsInputsTime'
                                     maxLength='2' 
                                     defaultValue={'00'}
                                     id='timeMinutes' 
@@ -136,8 +134,8 @@ export default class Events extends React.Component {
                                     <input 
                                     type='text' 
                                     id='people'
-                                    style={{width: '65%', border: '1px solid white', borderBottom: '1px solid #4B0082', textAlign: 'center', color: 'black'}}
-                                    className='event_people_label' 
+                                    style={{width: '65%'}}
+                                    className='event_people_label eventsInputs' 
                                     defaultValue={event.people}
                                     ref={ref => this.inputPeople = ref}
                                     />
@@ -145,12 +143,11 @@ export default class Events extends React.Component {
                                 </div>
                             </div> 
                         </div>
-                        <div className='event_description_label' style={{marginTop: '10px', textAlign: 'center'}}>
+                        <div className='event_description_label'>
                             <input 
                             type='text' 
                             id='description' 
-                            className='event_description_label' 
-                            style={{border: '0', borderBottom: '1px solid #4B0082', color: 'black'}}
+                            className='event_description_label eventsInputs' 
                             defaultValue={event.description}
                             ref={ref => this.inputDescription = ref}
                             />             
@@ -170,13 +167,13 @@ export default class Events extends React.Component {
                         
                         <div className='event_info_wrapper'>
                             <div className='event_info'>
-                                <div className='event_time_label'><span style={{color: 'black', display: 'block'}}>Время: </span>{event.time}</div>
+                                <div className='event_time_label'><span className='black_block'>Время: </span>{event.time}</div>
                             </div>
                             <div className='event_info'>
-                                <div className='event_people_label'><span style={{color: 'black', display: 'block'}}>Участники: </span>{event.people}</div>
+                                <div className='event_people_label'><span className='black_block'>Участники: </span>{event.people}</div>
                             </div> 
                         </div>
-                        <div className='event_description_label'><span style={{color: 'black', display: 'block'}}>Описание: </span>{event.description}</div>
+                        <div className='event_description_label'><span className='black_block'>Описание: </span>{event.description}</div>
                     </div>
                 )
             }

@@ -1,5 +1,5 @@
 import React from 'react'
-import Day from './Day'
+import { Day } from '../Days'
 
 export default class Week extends React.Component {
     render() {

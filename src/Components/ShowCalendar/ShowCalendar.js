@@ -1,9 +1,9 @@
 import React from 'react'
 
-import DayNames from './DayNames'
+import { DayNames } from '../Days'
 
-import arrowLeft from './arrow_left.svg'
-import arrowRight from './arrow_right.svg'
+import arrowLeft from '../../Svg/arrow_left.svg'
+import arrowRight from '../../Svg/arrow_right.svg'
 
 const ShowCalendar = (props) => {
     return (

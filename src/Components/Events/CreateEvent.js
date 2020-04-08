@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-import arrowLeft from './arrow_left.svg'
+import arrowLeft from '../../Svg/arrow_left.svg'
 
 export default class CreateEvent extends React.Component {
     constructor(props) {

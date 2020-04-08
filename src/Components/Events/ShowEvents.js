@@ -2,8 +2,8 @@ import React from 'react'
 
 import Events from './Events'
 
-import Plus from './plus.svg'
-import arrowLeft from './arrow_left.svg'
+import Plus from '../../Svg/plus.svg'
+import arrowLeft from '../../Svg/arrow_left.svg'
 
  const ShowEvents = (props) => {
         return (
