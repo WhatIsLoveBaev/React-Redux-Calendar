@@ -5,7 +5,7 @@ import { DayNames } from '../Days'
 import arrowLeft from '../../Svg/arrow_left.svg'
 import arrowRight from '../../Svg/arrow_right.svg'
 
-const ShowCalendar = (props) => {
+const ShowCalendar = props => {
     return (
         <div className='calendar_container'>
             <section className='main-calendar'>
@@ -27,5 +27,6 @@ const ShowCalendar = (props) => {
         </div>
     )
 }
-
 export default ShowCalendar
+
+

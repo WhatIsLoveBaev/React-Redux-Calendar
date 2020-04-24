@@ -1,29 +1,26 @@
 import React from 'react'
+import moment from 'moment'
 import { Day } from '../Days'
 
 export default class Week extends React.Component {
     render() {
         let days = []
-        let date = this.props.previousCurrentNextView
-        let currentMonthView = this.props.currentMonthView
-        let selected = this.props.selected
-        let select = this.props.select
-        let monthEvents = this.props.monthEvents
+        let { date, selectedMonth, selected, select, monthEvents } = this.props
 
         for (var i=0; i<7; i++) {
             let dayHasEvents = false
 
             for (var j=0; j<monthEvents.length; j++) {
-                if (monthEvents[j].date.isSame(date, 'day')) {
+                if (moment(monthEvents[j].date).isSame(date, 'day')) {
                     dayHasEvents = true
                 }
             }
             let day = {
                 name: date.format('dd').substring(0, 1),
                 number: date.date(),
-                isCurrentMonth: date.month() === currentMonthView.month(),
+                isCurrentMonth: date.month() === selectedMonth.month(),
                 isToday: date.isSame(new Date(), 'day'),
-                date: date,
+                date: moment(date),
                 hasEvents: dayHasEvents
             }
             days.push(<Day key={day.number} day={day} selected={selected} select={select} />)
