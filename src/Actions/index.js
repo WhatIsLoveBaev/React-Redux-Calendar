@@ -6,6 +6,8 @@ export const SHOW_EVENTS = 'SHOW_EVENTS'
 export const CREATE_EVENT = 'CREATE_EVENT'
 export const SELECTED_MONTH = 'SELECTED_MONTH'
 export const SELECTED_DAY = 'SELECTED_DAY'
+export const YEARS_TABLE = 'YEARS_TABLE'
+export const MONTHS_TABLE = 'MONTHS_TABLE'
 
 
 export function addEvent(payload) {
@@ -60,6 +62,18 @@ export function showEvents(payload) {
 export function createEvent(payload) {
     return {
         type: CREATE_EVENT,
+        payload
+    }
+}
+export function yearsTable(payload) {
+    return {
+        type: YEARS_TABLE,
+        payload
+    }
+}
+export function monthsTable(payload) {
+    return {
+        type: MONTHS_TABLE,
         payload
     }
 }

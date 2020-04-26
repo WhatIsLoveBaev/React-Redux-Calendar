@@ -7,7 +7,7 @@ import thunk from 'redux-thunk'
 
 import reducer from './Reducers'
 
-import Calendar from './Components/Calendar';
+import Calendar from './Components/Calendar'
 
 
 const store = createStore(reducer, applyMiddleware(thunk))

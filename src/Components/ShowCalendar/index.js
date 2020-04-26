@@ -1,3 +1,9 @@
 import ShowCalendar from './ShowCalendar'
+import YearsTable from './YearsTable'
+import MonthsTable from './MonthsTable'
 
-export default ShowCalendar
+export {
+    ShowCalendar,
+    YearsTable,
+    MonthsTable
+} 

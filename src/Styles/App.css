@@ -21,6 +21,9 @@ body {
   .calendar_container {
     width: 60%;
   }
+  .year {
+    margin: 5px;
+  }
 }
 @media (min-width: 768px) {
   .calendar_container {
@@ -92,7 +95,11 @@ body {
 .main-calendar .calendar-header .title-header .header-text .month-label {
   flex: 3;
 }
-
+.month-label:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #6A5ACD;
+}
 .main-calendar .calendar-header .days-header {
   width: 100%;
   height: 30%;
@@ -335,4 +342,60 @@ input {
 .black_block {
   color: black;
   display: block;
+}
+.years_wrap {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  color: #4B0082;
+}
+
+.year {
+  margin: 15px;
+  display: block;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+.month {
+  margin: 3px;
+  display: block;
+  flex-wrap: wrap;
+  cursor: pointer;
+  
+}
+@media (max-width: 450px) {
+  .year {
+    margin: 5px;
+    font-size: 18px;
+  }
+  .month {
+    font-size: 18px;
+  }
+}
+.svg_wrap_years {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  transition: all 0.4s;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.choose_year {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 30%;
+  color: #ffffff;
+  background-color: #4B0082;
+  padding: 15px;
+  justify-content: center;
+}
+.select_year {
+  position: absolute;
+  top: 33%;
 }

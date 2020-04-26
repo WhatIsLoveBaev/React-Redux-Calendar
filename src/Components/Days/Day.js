@@ -2,9 +2,7 @@ import React from 'react'
 
 const Day = props => {
 
-    let day = props.day
-    let selected = props.selected
-    let select = props.select
+    let { day, selected, select } = props
 
     return (
         <div className={
